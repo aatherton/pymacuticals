@@ -25,14 +25,12 @@ def setup(function):
     return result
 def pretty_picture(df, ylabel):
     """Takes a dataframe of the format we're using for our results. sets it up as a matplotlib plot. returns True if successful"""
-    # TODO:
-    # actually make this work
     colorlist = ["#e6194b", "#3cb44b", "#ffe119", "#0082c8", "#f58231", "#911eb4", "#46f0f0", "#f032e6", "#d2f53c", "#fabebe", "#000080", "#ffd8b1", "#808000", "#aaffc3", "#800000", "#fffac8", "#aa6e28", "#e6beff", "#008080"]
     markerlist = [".", ",", "o", "v", "^", "<", ">", "1", "2", "3", "4", "8", "s" "p", "P", "*", "h", "H", "+", "x", "X", "D", "d", "|", "_"]
     ball = []
     plt.figure(figsize = (22, 10))
     for each in range(len(df.columns)):
-        ball.append(plt.plot(df.index, df[df.columns[each]], label = df.columns[each], color = colorlist[each], marker = markerlist[each]))
+        ball.append(plt.errorbar(df.index, df[df.columns[each]], label = df.columns[each], color = colorlist[each], marker = markerlist[each], yerr = result.sem(axis = 0)[each]))
     plt.legend(loc = "best")
     plt.xlabel("Time (in days)")
     plt.ylabel(ylabel)
